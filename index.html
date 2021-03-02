@@ -27,10 +27,9 @@
           attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      var url_to_geotiff_file = "mapa_1887.tif";
+      var url_to_geotiff_file = "https://github.com/jocantu/historicmaps/blob/main/mapa_1887.tif";
 
-      fetch(url_to_geotiff_file,{
-           mode: "no-cors"})
+      fetch(url_to_geotiff_file)
         .then(response => response.arrayBuffer())
         .then(arrayBuffer => {
           parseGeoraster(arrayBuffer).then(georaster => {
