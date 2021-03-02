@@ -29,7 +29,8 @@
 
       var url_to_geotiff_file = "mapa_1887.tif";
 
-      fetch(url_to_geotiff_file)
+      fetch(url_to_geotiff_file,{
+           mode: "no-cors"})
         .then(response => response.arrayBuffer())
         .then(arrayBuffer => {
           parseGeoraster(arrayBuffer).then(georaster => {
