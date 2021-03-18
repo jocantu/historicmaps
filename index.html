@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Plain Leaflet API</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<script src="https://unpkg.com/georaster-layer-for-leaflet/georaster-layer-for-leaflet.browserify.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:20px; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+<div id="side-bar" class="col-md-3">
+  <input type="range" id="sldOpacity" min='0' max='1' step='0.1' value="0.5">
+</div>
+<div id='map'></div>
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1Ijoiam9jYW50dSIsImEiOiJja21kejNxZXIwcm5mMnJuOHllcWxic3MxIn0.zh71ykbTquAJq501-peeHA';
+
+var mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
+       attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+       tileSize: 512,
+       zoomOffset: -1
+});
+
+var map = L.map('map')
+  .addLayer(mapboxTiles)
+  .setView([25.543620, -103.397971], 13);
+var layer = L.imageOverlay('maps/1887.png',[[25.527288, -103.4756323],[25.54448313,-103.45108]]).addTo(map);
+
+objBasemaps = {
+  "Mapbox":mapboxTiles
+}
+
+objOverlays ={
+  "1887":layer
+}
+
+ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(map);
+
+$("#sldOpacity").on('change', function(){
+  layer.setOpacity(this.value);
+})
+
+</script>
+</body>
+</html>
